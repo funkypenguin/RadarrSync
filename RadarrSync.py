@@ -12,7 +12,7 @@ VER = '1.0.1'
 
 ########################################################################################################################
 logger = logging.getLogger()
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
 logFormatter = logging.Formatter("%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s")
 
 fileHandler = logging.FileHandler("./Output.txt")
@@ -119,6 +119,7 @@ for server in Config.sections():
                 r = session.post('{0}/api/movie?apikey={1}'.format(SyncServer_url, SyncServer_key), data=json.dumps(payload))
                 searchid.append(int(r.json()['id']))
                 logger.info('adding {0} to {1} server'.format(movie['title'], server))
+
             else:
                 logging.debug('{0} already in {1} library'.format(movie['title'], server))
         else:
